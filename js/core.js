@@ -5,7 +5,7 @@ const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"
 window.CH=window.CH||[];window.W=window.W||{};window.GLOSS=window.GLOSS||{};window.EXTRAS=window.EXTRAS||{};
 
 /* ---------- state ---------- */
-const KEY="wick_school_v1";
+const KEY="street_school_v1";
 let S={done:{},mode:"easy",xp:0};
 try{S=Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};

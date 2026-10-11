@@ -55,14 +55,14 @@ function drawScene(def,ctx,Wc,Hc,t,opt={}){
 
 const EX_PACES={relaxed:{label:"Relaxed",mult:1.3,wps:2.1,pause:1500,rate:.88},normal:{label:"Normal",mult:1.05,wps:2.7,pause:900,rate:.97},quick:{label:"Quick",mult:.85,wps:3.4,pause:450,rate:1.08}};
 const plain=h=>String(h).replace(/\{\{[a-z0-9\-]+\|?([^}]*)\}\}/gi,(m,x)=>x||"").replace(/<[^>]+>/g,"");
-function exVoice(){if(!window.speechSynthesis)return null;const want=localStorage.getItem("wick_ex_voice"),vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));if(want){const v=vs.find(v=>v.name===want);if(v)return v}
+function exVoice(){if(!window.speechSynthesis)return null;const want=localStorage.getItem("street_ex_voice"),vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));if(want){const v=vs.find(v=>v.name===want);if(v)return v}
   for(const re of[/natural|online/i,/aria|jenny|guy|libby|sonia|ryan|emma|brian/i,/google us english/i,/samantha|ava|allison|daniel|karen|moira|serena|zira|david/i]){const v=vs.find(v=>re.test(v.name));if(v)return v}return vs[0]||null}
 
 /* The player is paced by the words, not by a fixed clock. Each caption is a step. A step lasts as long as the animation needs or the time it takes to read (or speak) the caption, whichever is longer, then pauses briefly. With Read aloud on, the next step waits until the voice has finished. */
 class ExPlayer{
   constructor(root,def,opt={}){
-    this.def=def;this.root=root;this.playing=false;this.say=localStorage.getItem("wick_ex_say")!=="0";this.seg=0;this.el=0;this.spoken=true;this.shown=-1;this.shownLv="";
-    this.level=localStorage.getItem("wick_ex_level")||"simple";this.pace=localStorage.getItem("wick_ex_pace")||"relaxed";this.auto=localStorage.getItem("wick_ex_auto")!=="0";
+    this.def=def;this.root=root;this.playing=false;this.say=localStorage.getItem("street_ex_say")!=="0";this.seg=0;this.el=0;this.spoken=true;this.shown=-1;this.shownLv="";this.started=false;
+    this.level=localStorage.getItem("street_ex_level")||"simple";this.pace=localStorage.getItem("street_ex_pace")||"relaxed";this.auto=localStorage.getItem("street_ex_auto")!=="0";
     const caps=def.caps;this.segs=caps.map((c,i)=>({a:c.at,b:i+1<caps.length?caps[i+1].at:def.dur}));
     root.innerHTML=`<div class="exp" tabindex="0"><canvas class="excv"></canvas>
     <div class="exdots" aria-label="Steps"></div>
@@ -79,9 +79,9 @@ class ExPlayer{
     this.dots.querySelectorAll("button").forEach(b=>b.onclick=()=>{this.jump(+b.dataset.s);if(this.say&&this.playing)this.speak()});
     new ResizeObserver(()=>this.size()).observe(this.cv);this.size();
     root.querySelectorAll(".exb").forEach(b=>b.onclick=()=>this.act(b.dataset.a));
-    root.querySelectorAll("[data-lv]").forEach(b=>b.onclick=()=>{this.level=b.dataset.lv;localStorage.setItem("wick_ex_level",this.level);this.paintCtl();this.caption(true)});
-    const pe=root.querySelector(".expace");pe.value=this.pace;pe.onchange=()=>{this.pace=pe.value;localStorage.setItem("wick_ex_pace",this.pace)};
-    this.scr.oninput=()=>{this.pause();const t=this.scr.value/1000*def.dur;const k=this.segOf(t);this.seg=k;const sg=this.segs[k];this.el=(t-sg.a)/Math.max(1,sg.b-sg.a)*this.animMs(k);this.render()};
+    root.querySelectorAll("[data-lv]").forEach(b=>b.onclick=()=>{this.level=b.dataset.lv;localStorage.setItem("street_ex_level",this.level);this.paintCtl();this.caption(true)});
+    const pe=root.querySelector(".expace");pe.value=this.pace;pe.onchange=()=>{this.pace=pe.value;localStorage.setItem("street_ex_pace",this.pace)};
+    this.scr.oninput=()=>{this.started=true;this.pause();const t=this.scr.value/1000*def.dur;const k=this.segOf(t);this.seg=k;const sg=this.segs[k];this.el=(t-sg.a)/Math.max(1,sg.b-sg.a)*this.animMs(k);this.render()};
     const kb=root.querySelector(".exp");kb.onkeydown=e=>{if(e.key===" "){e.preventDefault();this.act("play")}else if(e.key==="ArrowRight")this.act("next");else if(e.key==="ArrowLeft")this.act("prev")};
     this.fillVoices();if(window.speechSynthesis)speechSynthesis.onvoiceschanged=()=>this.fillVoices();
     this.paintCtl();
@@ -90,7 +90,7 @@ class ExPlayer{
     this.render();
     if(opt.auto!==false&&!opt.startAtEnd)setTimeout(()=>{if(document.body.contains(root))this.play()},600);
   }
-  fillVoices(){const sel=this.root.querySelector(".exvoice");if(!sel||!window.speechSynthesis)return;const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));if(!vs.length)return;const cur=exVoice();sel.innerHTML=vs.map(v=>`<option value="${v.name}" ${cur&&cur.name===v.name?"selected":""}>${v.name}</option>`).join("");sel.onchange=()=>{localStorage.setItem("wick_ex_voice",sel.value);if(this.say&&this.playing)this.speak()}}
+  fillVoices(){const sel=this.root.querySelector(".exvoice");if(!sel||!window.speechSynthesis)return;const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));if(!vs.length)return;const cur=exVoice();sel.innerHTML=vs.map(v=>`<option value="${v.name}" ${cur&&cur.name===v.name?"selected":""}>${v.name}</option>`).join("");sel.onchange=()=>{localStorage.setItem("street_ex_voice",sel.value);if(this.say&&this.playing)this.speak()}}
   size(){const w=this.cv.clientWidth||600,h=Math.max(Math.round(w*this.def.H/this.def.W),Math.min(Math.round(w*.85),330)),dpr=devicePixelRatio||1;this.Wc=w;this.Hc=h;this.cv.style.height=h+"px";this.cv.width=Math.round(w*dpr);this.cv.height=Math.round(h*dpr);this.ctx.setTransform(dpr,0,0,dpr,0,0);this.render()}
   paintCtl(){this.root.querySelectorAll("[data-lv]").forEach(b=>b.classList.toggle("on",b.dataset.lv===this.level));const a=this.root.querySelector(".autob");a.textContent=this.auto?"Auto-play":"Step mode";a.classList.toggle("on",!this.auto)}
   text(i){const c=this.def.caps[i];return plain(this.level==="adv"&&c.adv?c.adv:c.text)}
@@ -99,14 +99,14 @@ class ExPlayer{
   animMs(i){const sg=this.segs[i];return Math.max((sg.b-sg.a)*EX_PACES[this.pace].mult,this.readMs(i))}
   segOf(t){let k=0;for(let i=0;i<this.segs.length;i++)if(t>=this.segs[i].a)k=i;return k}
   tAuth(){const sg=this.segs[this.seg],f=Math.min(1,this.el/Math.max(1,this.animMs(this.seg)));return sg.a+(sg.b-sg.a)*f}
-  jump(k){const was=this.playing;this.stopSpeech();this.seg=Math.max(0,Math.min(this.segs.length-1,k));this.el=0;this.spoken=!this.say;this.render();if(was&&!this.playing)this.play()}
+  jump(k){this.started=true;const was=this.playing;this.stopSpeech();this.seg=Math.max(0,Math.min(this.segs.length-1,k));this.el=0;this.spoken=!this.say;this.render();if(was&&!this.playing)this.play()}
   act(a){
     if(a==="play")return this.playing?this.pause():this.play();
     if(a==="rew"){this.stopSpeech();this.seg=0;this.el=0;this.shown=-1;this.spoken=!this.say;this.render();return this.play()}
     if(a==="prev"){this.pause();this.jump(this.el>1500?this.seg:this.seg-1)}
     if(a==="next"){this.pause();this.jump(this.seg+1);this.el=this.animMs(this.seg)*.02}
-    if(a==="auto"){this.auto=!this.auto;localStorage.setItem("wick_ex_auto",this.auto?"1":"0");this.paintCtl()}
-    if(a==="say"){this.say=!this.say;localStorage.setItem("wick_ex_say",this.say?"1":"0");this.root.querySelector(".narr").classList.toggle("on",this.say);this.root.querySelector(".exvrow").style.display=(this.say&&!this.hasAudio())?"":"none";if(!this.say)this.stopSpeech();else{this.fillVoices();this.spoken=false;this.speak()}}}
+    if(a==="auto"){this.auto=!this.auto;localStorage.setItem("street_ex_auto",this.auto?"1":"0");this.paintCtl()}
+    if(a==="say"){this.say=!this.say;localStorage.setItem("street_ex_say",this.say?"1":"0");this.root.querySelector(".narr").classList.toggle("on",this.say);this.root.querySelector(".exvrow").style.display=(this.say&&!this.hasAudio())?"":"none";if(!this.say)this.stopSpeech();else{this.fillVoices();this.spoken=false;this.speak()}}}
   stopSpeech(){this.root.classList.remove("speaking");if(this.aud){this.aud.onended=null;this.aud.pause();this.aud=null}if(window.speechSynthesis)speechSynthesis.cancel();this.spoken=true}
   hasAudio(){return !!(window.EXAUDIO&&EXAUDIO[this.def.id])}
   audioKey(k){const c=this.def.caps[k];return k+((this.level==="adv"&&c&&c.adv)?"a":"s")}
@@ -118,7 +118,7 @@ class ExPlayer{
       const p=a.play();this.root.classList.add("speaking");if(p&&p.catch)p.catch(e=>{this.root.classList.remove("speaking");if(e&&e.name==="NotAllowedError"){this.pause();const h=this.root.querySelector(".exhint");if(h)h.textContent="Your browser wants a tap before it plays sound. Press play to hear her."}else this.spoken=true});
       const nx=this.clip(this.seg+1);if(nx){const w=new Audio();w.preload="auto";w.src=nx}return}
     if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(this.text(this.seg)),v=exVoice();if(v)u.voice=v;u.rate=EX_PACES[this.pace].rate;u.pitch=1;this.spoken=false;const id=this.seg;u.onend=()=>{if(this.seg===id)this.spoken=true};u.onerror=()=>{this.spoken=true};speechSynthesis.speak(u)}
-  play(){const last=this.segs.length-1,P=EX_PACES[this.pace];
+  play(){this.started=true;const last=this.segs.length-1,P=EX_PACES[this.pace];
     if(this.seg>=last&&this.el>=this.animMs(last)+P.pause-5){this.seg=0;this.el=0;this.shown=-1}
     else if(this.el>=this.animMs(this.seg)+P.pause-5){this.seg=Math.min(last,this.seg+1);this.el=0}
     this.playing=true;this.pb.textContent="⏸";this.last=performance.now();this.spoken=!this.say;if(this.say)this.speak();
@@ -132,7 +132,9 @@ class ExPlayer{
     requestAnimationFrame(loop)}
   pause(){this.root.classList.remove("speaking");this.playing=false;this.pb.textContent="▶";if(this.say){if(this.aud)this.aud.pause();if(window.speechSynthesis)speechSynthesis.cancel();this.spoken=false}}
   caption(force){const k=this.seg;if(k===this.shown&&!force&&this.shownLv===this.level)return;this.shown=k;this.shownLv=this.level;const c=this.def.caps[k];if(!c)return;const txt=this.level==="adv"&&c.adv?c.adv:c.text;this.cap.innerHTML=`<span class="exn">${k+1}/${this.def.caps.length}</span> ${typeof gl==="function"?gl(txt):txt}`;this.dots.querySelectorAll("button").forEach((b,i)=>{b.classList.toggle("on",i===k);b.classList.toggle("done",i<k)})}
-  render(){const t=this.tAuth();drawScene(this.def,this.ctx,this.Wc,this.Hc,t);this.scr.value=Math.round(t/this.def.dur*1000);this.caption();const rd=this.readMs(this.seg);this.bar.style.width=Math.round(Math.min(1,this.el/Math.max(1,rd))*100)+"%"}
+  /* Step 1 of most guides is an introduction with nothing drawn yet. Show the finished picture (the same one the card thumbnail shows) during step 1 so the page never looks empty; step 2 then builds it from scratch. */
+  firstAt(){const d=this.def;if(d.custom)return 0;let m=1e12;[d.candles,d.items,d.boxes,d.lines,d.rings].forEach(a=>(a||[]).forEach(x=>{if(x&&typeof x.at==="number")m=Math.min(m,x.at)}));return m}
+  render(){const tr=this.tAuth(),poster=this.seg===0&&(!this.started||this.firstAt()>=this.segs[0].b-1),t=poster?(this.def.thumbAt??this.def.dur*.8):tr;drawScene(this.def,this.ctx,this.Wc,this.Hc,t);this.scr.value=Math.round(tr/this.def.dur*1000);this.caption();const rd=this.readMs(this.seg);this.bar.style.width=Math.round(Math.min(1,this.el/Math.max(1,rd))*100)+"%"}
 }
 
 function exThumb(def,cv,w=300){const h=Math.round(w*def.H/def.W),dpr=devicePixelRatio||1;cv.style.width="100%";cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);cv.style.height="auto";cv.style.aspectRatio=def.W+"/"+def.H;const c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);drawScene(def,c,w,h,def.thumbAt??def.dur*.8,{thumb:true})}

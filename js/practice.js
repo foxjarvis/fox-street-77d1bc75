@@ -4,14 +4,14 @@ W.practice=el=>{
   /* LucidFlex evaluation rules, from Lucid's own support pages (checked 2026-10-10): profit target, max loss limit (end-of-day trailing), max size. trail = initial trail balance, after which the loss limit locks at size + $100. Firms change rules: always check theirs. */
   const L={25000:{mll:1000,tgt:1250,cap:20,trail:26100},50000:{mll:2000,tgt:3000,cap:40,trail:52100},100000:{mll:3000,tgt:6000,cap:60,trail:103100},150000:{mll:4500,tgt:9000,cap:100,trail:154600}};
   const fresh=sz=>({size:sz,n:0,w:0,r:0,curve:[0],skips:0,log:[],bal:sz,eq:[sz],peak:sz,hwm:sz,days:{},status:"active",p:0,f:0});
-  const load=()=>{try{return JSON.parse(localStorage.getItem("wick_practice4"))||null}catch(e){return null}};
+  const load=()=>{try{return JSON.parse(localStorage.getItem("street_practice4"))||null}catch(e){return null}};
   const all=Object.assign({cur:50000,a:{}},load()||{});
   const getAcct=sz=>{all.a[sz]=Object.assign(fresh(sz),all.a[sz]||{});return all.a[sz]};
   let st=getAcct(all.cur);
-  const persist=()=>{all.a[st.size]=st;all.cur=st.size;localStorage.setItem("wick_practice4",JSON.stringify(all))};
+  const persist=()=>{all.a[st.size]=st;all.cur=st.size;localStorage.setItem("street_practice4",JSON.stringify(all))};
   const cfg=()=>L[st.size],mllLevel=()=>Math.min(st.hwm-cfg().mll,st.size+100);
   const bigDay=()=>Math.max(0,...Object.values(st.days));
-  let level=localStorage.getItem("wick_ctx_level")||"beginner";
+  let level=localStorage.getItem("street_ctx_level")||"beginner";
   const meta=RD.meta;
   const b=box(el,"Trade a real day (practice game)",`
   <div class="note" style="margin-top:0"><b>How it works.</b> Think of it as running the route empty before you carry anything. Every chart is <b>real history</b> of Nasdaq-100 futures (NQ), 5-minute candles, from ${meta.start} to ${meta.end}. Switch the chart between 5 minute, 15 minute, 30 minute, 1 hour, 4 hour and daily candles (all built from the same real data, with no peeking ahead: the last candle is still forming). The date stays hidden until you finish, so you cannot look it up. You get a summary of what was going on, make a call (Buy, Sell or Skip), set your own stop and target by dragging the lines on the chart (or typing prices) on a simulated <b>prop firm evaluation account</b> that follows <b>Lucid's LucidFlex rules</b> (pick 25K, 50K, 100K or 150K), and then the candles play out <b>until your stop or your target is actually hit</b>. Your score is in <b>R</b> (1R = what you risked) and in dollars on the account (MNQ, $2 per point per contract).</div>
@@ -39,7 +39,7 @@ W.practice=el=>{
   const q=s=>b.querySelector(s);
   const s2show=on=>{q("#s2").style.display=on?"":"none";q("#s2go").style.display=on?"":"none"};
   const ch=mkChart(q("#pg"),{height:340});
-  let sc=null,side=0,busy=false,pick={ref:0,stop:0,tgt:0},speed=+(localStorage.getItem("wick_play_ms2")||5000),timer=null,curStep=null,paused=false,runToken=0,fsOn=false;
+  let sc=null,side=0,busy=false,pick={ref:0,stop:0,tgt:0},speed=+(localStorage.getItem("street_play_ms2")||5000),timer=null,curStep=null,paused=false,runToken=0,fsOn=false;
   const WIN=100;
   const mk=(a,z)=>{const out=[];for(let i=a;i<=z;i++)out.push({o:RD.o[i],h:RD.h[i],l:RD.l[i],c:RD.c[i],v:RD.v[i]});return out};
   const labels=(a,z)=>{const out=[];for(let i=a;i<=z;i++){const mm=RD.m[i]%60;out.push(mm===0||mm===30?RD.hhmm(RD.m[i]):"")}return out};
@@ -189,7 +189,7 @@ W.practice=el=>{
     div.querySelectorAll(".patbtns .chip").forEach(btn=>btn.onclick=()=>{all.pat=all.pat||{};const t=all.pat[p.id]=all.pat[p.id]||{s:0,m:0};if(div.dataset.done)return;div.dataset.done="1";t[btn.dataset.a]++;persist();btn.classList.add("on");lab.textContent=tallyText(p)})})};
   const SPD=[10000,5000,2000,600,0],SPDN={10000:"Very slow",5000:"Slow",2000:"Medium",600:"Fast",0:"Skip"};
   const paintSpd=()=>{const el=q("#pspd");el.textContent="⏩ "+(SPDN[speed]||(speed/1000)+"s");el.style.display=busy?"":"none"};
-  const setSpeed=v=>{speed=v;localStorage.setItem("wick_play_ms2",speed);q("#s3").querySelectorAll(".chip[data-sp]").forEach(x=>x.classList.toggle("on",+x.dataset.sp===speed));paintSpd()};
+  const setSpeed=v=>{speed=v;localStorage.setItem("street_play_ms2",speed);q("#s3").querySelectorAll(".chip[data-sp]").forEach(x=>x.classList.toggle("on",+x.dataset.sp===speed));paintSpd()};
   const run=()=>{
     if(busy)return;busy=true;const e=sc.k+1,entry=RD.o[e],risk=Math.abs(pick.ref-pick.stop),tdist=Math.abs(pick.tgt-pick.ref),rr=tdist/risk,N=nct(),cost=q("#pc").checked?.5:0,eod=q("#pe").checked;
     const stop0=entry-side*risk,tgt=entry+side*tdist,room0=st.bal-mllLevel(),breachPx=entry+side*((-room0)/(2*N)+cost),stop=side>0?Math.max(stop0,breachPx):Math.min(stop0,breachPx),isBreach=stop!==stop0;
@@ -246,7 +246,7 @@ W.practice=el=>{
       q("#pnext").onclick=newChart;wirePats(pats);
       runToken++;q("#s3").style.display="none";busy=false;paintSpd();stats();curStep=null;if(vd)setTimeout(()=>celebrate(vd),900);else say(cl[0]+(pats[0]?" And did you spot the "+pats[0].title.toLowerCase()+"? Check the pattern card under the chart.":""),cl[1],12000)};
     advance()};
-  b.querySelectorAll("#pl button").forEach(x=>x.onclick=()=>{level=x.dataset.l;localStorage.setItem("wick_ctx_level",level);ctxHtml()});
+  b.querySelectorAll("#pl button").forEach(x=>x.onclick=()=>{level=x.dataset.l;localStorage.setItem("street_ctx_level",level);ctxHtml()});
   b.querySelectorAll("#ptf .chip").forEach(x=>x.onclick=()=>{tf=+x.dataset.tf;userScale=null;b.querySelectorAll("#ptf .chip").forEach(y=>y.classList.toggle("on",y===x));if(sc&&lastDraw)lastDraw();if(innerWidth>=600)say(tf>=60?"Zoomed out. This is where you see the trend and the big levels. Come back down to time your entry.":"Zoomed in. Good for timing an entry, but easy to miss the bigger picture. Flip out to check.","think",7000)});
   q("#pb").onclick=()=>pickSide(1);q("#ps").onclick=()=>pickSide(-1);
   q("#px").onclick=()=>{st.skips=(st.skips||0)+1;persist();stats();peek()};

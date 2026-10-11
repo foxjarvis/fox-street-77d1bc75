@@ -1,6 +1,6 @@
 /* Habit report: reads the practice-game trade log (this browser only) and points out habits the numbers show. Small samples are called small samples; nothing here is advice to trade a certain way. */
 W.habits=el=>{
-  const raw=(()=>{try{return JSON.parse(localStorage.getItem("wick_practice4"))||{}}catch(e){return{}}})();
+  const raw=(()=>{try{return JSON.parse(localStorage.getItem("street_practice4"))||{}}catch(e){return{}}})();
   const accts=Object.values(raw.a||{});
   const log=accts.flatMap(a=>(a.log||[]).map(x=>({...x,size:a.size})));
   const skips=accts.reduce((s,a)=>s+(a.skips||0),0);

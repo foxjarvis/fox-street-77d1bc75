@@ -1,7 +1,7 @@
 /* Spot it: a drill. A real chart is frozen at one moment (no peeking ahead). You tap where the pattern is BEFORE being told, then it grades you and shows the answer with the guide. */
 W.spot=el=>{
   if(!RD){box(el,"Spot it",'<div class="warn">The real-data file did not load. Refresh the page.</div>');return}
-  const KEY="wick_spot";
+  const KEY="street_spot";
   const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}};
   const T=Object.assign({n:0,ok:0,streak:0,best:0,by:{},hard:false},load());
   const save=()=>localStorage.setItem(KEY,JSON.stringify(T));
