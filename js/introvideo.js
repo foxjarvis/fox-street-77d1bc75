@@ -113,7 +113,7 @@
     const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
     const starts=[];let acc=0;D.scenes.forEach(s=>{starts.push(acc);acc+=s.dur+.7});const total=acc;
     app.innerHTML=`<div class="ch"><div class="chhead"><div class="em">▶️</div><div><h1>Intro to trading</h1><p>A short, narrated introduction for people who know nothing yet. About ${Math.round(total/60)} minutes. Come back to it any time.</p></div></div>
-    <div class="vwrap"><div class="vstage" id="vst"><svg id="vsvg" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid meet"></svg><button class="vbig" id="vbig" aria-label="Play">&#9654;</button></div><div class="vcap" id="vcap"><span class="vva">${foxF("happy")}</span><span id="vct" class="vct"></span></div>
+    <div class="vwrap"><div class="vstage vposter" id="vst"><svg id="vsvg" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid meet"></svg><button class="vbig" id="vbig" aria-label="Play">&#9654;</button><div class="vhint" id="vhint">Press the big play button. The picture and the voice start together. Turn your volume up.</div></div><div class="vcap" id="vcap"><span class="vva">${foxF("happy")}</span><span id="vct" class="vct"></span></div>
     <div class="vbar" id="vbar"><div class="vfill" id="vfill"></div>${starts.map((s,i)=>`<i class="vtick" style="left:${(s/total*100).toFixed(2)}%"></i>`).join("")}</div>
     <div class="vctl"><button class="btn sm" id="vpp">Play</button><button class="btn alt sm" id="vrep">Restart</button><span id="vtime" class="vtime">0:00 / ${fmt(total)}</span><label class="vopt">Volume <input type="range" id="vvol" min="0" max="1" step="0.05" value="1"></label><label class="vopt" style="margin-left:0"><input type="checkbox" id="vcc" checked> Captions</label></div><div class="cap" id="vstat" style="min-height:1.4em"></div>
     <div class="vchap" id="vchap">${D.scenes.map((s,i)=>`<button class="chip" data-i="${i}">${i+1}. ${s.title}</button>`).join("")}</div>
@@ -141,7 +141,7 @@
     function start(auto){
       clearTimeout(gap);cancelAnimationFrame(raf);ended=false;draw();stage.classList.remove("paused");
       const sc=scene();audio.src=sc.audio;audio.currentTime=0;fallback=false;
-      const go=()=>{playing=true;$("vcap").classList.add("speak");$("vpp").textContent="Pause";$("vbig").style.display="none";raf=requestAnimationFrame(tick)};
+      const go=()=>{playing=true;$("vcap").classList.add("speak");$("vpp").textContent="Pause";$("vbig").style.display="none";$("vhint").style.display="none";stage.classList.remove("vposter");raf=requestAnimationFrame(tick)};
       try{speechSynthesis.cancel()}catch(e){}
       audio.volume=+$("vvol").value;$("vstat").textContent="";
       const p=audio.play();

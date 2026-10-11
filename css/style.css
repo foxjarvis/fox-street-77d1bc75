@@ -11,10 +11,10 @@ li{margin:.3em 0}
 .wrap{max-width:860px;margin:0 auto;padding:0 18px}
 /* top bar */
 .top{position:sticky;top:0;z-index:40;background:#0b1525e6;backdrop-filter:blur(10px);border-bottom:1px solid #27426a66}
-.top .wrap{display:flex;align-items:center;gap:12px;height:58px}
+.top .wrap{display:flex;align-items:center;gap:4px 12px;min-height:58px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:var(--ink)}
 .brand svg{width:32px;height:45px}
-.top nav{margin-left:auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.top nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
 .top nav a{flex:none;color:var(--mut);text-decoration:none;font-weight:700;font-size:14px;padding:8px 12px;border-radius:999px}
 .top nav a.on,.top nav a:hover{background:var(--card2);color:var(--ink)}
 .xp{display:flex;align-items:center;gap:6px;font-weight:800;font-size:13px;color:var(--gold);white-space:nowrap}
@@ -298,3 +298,8 @@ body[data-page="practice"] .fox-coach{bottom:92px}
 .trow{padding:12px 14px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:var(--card)}
 .trow b.st{color:var(--gold)}
 .trow .tr{color:var(--mut);font-size:.9em}
+.vhint{position:absolute;left:0;right:0;top:12px;z-index:2;background:#050b16b0;text-align:center;color:var(--ink);font-weight:700;font-size:15px;padding:0 20px;text-shadow:0 2px 8px #000}
+.vstage.vposter .vf,.vstage.vposter .vp{animation:none!important;opacity:1!important;transform:none!important}
+.vstage.vposter .vd{animation:none!important;stroke-dashoffset:0!important}
+.vstage.vposter .vtmp{animation:none!important;opacity:0!important}
+.vstage.vposter .vbig{opacity:.92}

@@ -1,4 +1,4 @@
-/* Trader Fox (the mascot, in glasses and a tailored suit) and Mrs. Francis (the narrator, soft eyes, a pleasant smile, pearls and a bow): one drawing, two characters.
+/* Street edition: Trader Fox (the mascot, in glasses, a red fitted cap, a black puffer jacket and a gold chain) and Mrs. Francis (the narrator, soft eyes, a pleasant smile, a satin bomber with a fur collar, gold chains, hoops and a bow): one drawing, two characters.
    Gradient fur, ears joined to the head, a defined muzzle and nose, a bushy tail with a white tip. foxArt(female, mood) returns an SVG string with viewBox 0 0 120 168. */
 function foxArt(female,mood="happy"){
   const k=(female?"f":"m")+(foxArt.n=(foxArt.n||0)+1);
@@ -20,15 +20,23 @@ function foxArt(female,mood="happy"){
   const glasses=female?"":`<g fill="none" stroke="url(#${k}gold)" stroke-width="2.6" stroke-linecap="round"><circle cx="42" cy="64" r="13.4"/><circle cx="78" cy="64" r="13.4"/><path d="M55.2 61 Q60 57 64.8 61"/><path d="M28.8 61 L19 57.5 M91.2 61 L101 57.5"/></g><circle cx="42" cy="64" r="12.2" fill="#cfe6ff" opacity=".13"/><circle cx="78" cy="64" r="12.2" fill="#cfe6ff" opacity=".13"/><path d="M32.5 57 Q35.5 53.5 40 53" fill="none" stroke="#fff" stroke-width="1.8" opacity=".55" stroke-linecap="round"/><path d="M68.5 57 Q71.5 53.5 76 53" fill="none" stroke="#fff" stroke-width="1.8" opacity=".55" stroke-linecap="round"/>`;
   const body=female
     ?`<path d="M22 168 C22 134 38 116 60 114 C82 116 98 134 98 168 Z" fill="url(#${k}body)" stroke="#6e1b4b" stroke-width="1.2"/>
-      <path d="M44 117 L60 139 L76 117 C70 114.4 64 113.6 60 113.6 C56 113.6 50 114.4 44 117 Z" fill="#fff8f0" stroke="#e8dcc8" stroke-width="1"/>
-      ${Array.from({length:9},(_,i)=>{const t=i/8,x=47+26*t,y=118.6+8.5*Math.sin(Math.PI*t);return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.8" fill="#fffdf8" stroke="#d8c9b0" stroke-width=".7"/>`}).join("")}
-      <circle cx="60" cy="140" r="3.2" fill="#ffd166" stroke="#c9972b" stroke-width="1"/>`
-    :`<path d="M22 168 C22 134 38 116 60 114 C82 116 98 134 98 168 Z" fill="url(#${k}body)" stroke="#102a47" stroke-width="1.2"/>
-      <g clip-path="url(#${k}bc)" stroke="#ffffff" stroke-opacity=".13" stroke-width="1">${Array.from({length:14},(_,i)=>`<path d="M${24+i*5.4} 112 L${24+i*5.4} 170"/>`).join("")}</g>
-      <path d="M46 116 L60 142 L74 116 C70 114 64 113 60 113 C56 113 50 114 46 116 Z" fill="#fbfdff" stroke="#dfe6ee" stroke-width="1"/>
-      <path d="M60 126 L55 123 L55 132 Z M60 126 L65 123 L65 132 Z" fill="#7d1226"/><circle cx="60" cy="126" r="2.3" fill="#5e0d1c"/><path d="M60 129 L56.4 150 L60 156 L63.6 150 Z" fill="#8c1d2f"/><path d="M58.4 136 L61.6 134 M57.6 141 L62.4 139" stroke="#e7b7bf" stroke-width="1.1" opacity=".7"/><rect x="57.2" y="140.5" width="5.6" height="1.8" rx=".6" fill="#d9ae3a"/>
-      <path d="M46 116 L34 136 L50 154 L60 142 Z" fill="#1c4068" stroke="#102a47" stroke-width="1"/><path d="M74 116 L86 136 L70 154 L60 142 Z" fill="#1c4068" stroke="#102a47" stroke-width="1"/>
-      <path d="M31 138 L40 136.4 L38.6 143 L30 144 Z" fill="#fff" stroke="#c9d3df" stroke-width=".8"/><path d="M32 140.4 L38 139.4 L37.4 142 L31.6 142.8 Z" fill="#c8323f" opacity=".85"/>`;
+      <g clip-path="url(#${k}bc)" stroke="#ffffff" stroke-opacity=".16" stroke-width="1.2" fill="none"><path d="M18 138 Q60 148 102 138"/><path d="M18 152 Q60 162 102 152"/></g>
+      <path d="M60 126 L60 168" stroke="#ffd166" stroke-width="2" stroke-dasharray="2.4 2"/>
+      <path d="M32 126 C32 114 46 111 60 111 C74 111 88 114 88 126 C84 122 78 124 72 121 C66 125 54 125 48 121 C42 124 36 122 32 126 Z" fill="#fffdf8" stroke="#e8dcc8" stroke-width="1"/>
+      ${Array.from({length:7},(_,i)=>{const t=i/6,x=36+48*t,y=122-9*Math.sin(Math.PI*t);return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="#fffdf8" stroke="#eadfca" stroke-width=".8"/>`}).join("")}
+      <path d="M45 122 C46 138 55 146 60 147 C65 146 74 138 75 122" fill="none" stroke="url(#${k}gold)" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="3.4 1.4"/>
+      <path d="M41 122 C41 144 54 156 60 158 C66 156 79 144 79 122" fill="none" stroke="url(#${k}gold)" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="3 1.4"/>
+      <path d="M60 164 C52 158 52 152 56 152 C58 152 60 154 60 155 C60 154 62 152 64 152 C68 152 68 158 60 164 Z" fill="url(#${k}gold)" stroke="#8a6417" stroke-width=".8"/>`
+    :`<path d="M22 168 C22 134 38 116 60 114 C82 116 98 134 98 168 Z" fill="url(#${k}body)" stroke="#07070b" stroke-width="1.2"/>
+      <g clip-path="url(#${k}bc)" stroke="#ffffff" stroke-opacity=".13" stroke-width="1.3" fill="none"><path d="M18 134 Q60 144 102 134"/><path d="M18 148 Q60 158 102 148"/><path d="M18 162 Q60 172 102 162"/></g>
+      <path d="M46 116 L60 148 L74 116 C70 114 64 113 60 113 C56 113 50 114 46 116 Z" fill="#f4f6fa" stroke="#cfd6e0" stroke-width="1"/>
+      <path d="M46 116 L38 132 L56 168 L60 148 Z" fill="#202029" stroke="#07070b" stroke-width="1"/><path d="M74 116 L82 132 L64 168 L60 148 Z" fill="#202029" stroke="#07070b" stroke-width="1"/>
+      <path d="M40 118 C36 111 46 107 60 107 C74 107 84 111 80 118 C72 114 48 114 40 118 Z" fill="#2a2a35" stroke="#07070b" stroke-width="1"/>
+      <path d="M41 118 C48 114.4 72 114.4 79 118" fill="none" stroke="#d62839" stroke-width="2"/>
+      <path d="M45 118 C46 136 56 146 60 148 C64 146 74 136 75 118" fill="none" stroke="url(#${k}gold)" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 1.6"/>
+      <circle cx="60" cy="155" r="7" fill="url(#${k}gold)" stroke="#8a6417" stroke-width="1"/><text x="60" y="158.6" text-anchor="middle" font-size="10" font-weight="900" font-family="Georgia,serif" fill="#5c3d08">$</text>`;
+  const cap=female?"":`<g><path d="M31 38 C31 14 89 14 89 38 C80 34 40 34 31 38 Z" fill="#d62839" stroke="#8d1220" stroke-width="1.2"/><circle cx="60" cy="17" r="2.2" fill="#8d1220"/><circle cx="60" cy="27" r="5.4" fill="url(#${k}gold)" stroke="#8a6417" stroke-width=".8"/><text x="60" y="30.6" text-anchor="middle" font-size="8.5" font-weight="900" font-family="Georgia,serif" fill="#5c3d08">F</text><path d="M24 40 C38 31 82 31 96 40 C86 46 34 46 24 40 Z" fill="#a31a2a" stroke="#6d0f1b" stroke-width="1.2"/></g>`;
+  const hoops=female?`<g fill="none" stroke="url(#${k}gold)" stroke-width="2.4"><circle cx="18" cy="92" r="7.4"/><circle cx="102" cy="92" r="7.4"/></g>`:"";
   const bow=female?`<g transform="translate(88 30) rotate(18)"><path d="M0 0 C-8 -9 -16 -4 -14 4 C-12 10 -4 8 0 0 Z M0 0 C8 -9 16 -4 14 4 C12 10 4 8 0 0 Z" fill="url(#${k}bow)" stroke="#b02a6c" stroke-width="1"/><circle cx="0" cy="0" r="3.2" fill="#ffd166" stroke="#c9972b" stroke-width=".8"/></g>`:"";
   const innerEar=female?"#ff9bb0":"#4a2418";
   return `<svg viewBox="0 0 120 168" aria-hidden="true">
@@ -37,7 +45,7 @@ function foxArt(female,mood="happy"){
     <linearGradient id="${k}tail" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#e5651b"/><stop offset=".6" stop-color="#f58a2e"/><stop offset="1" stop-color="#ffb04a"/></linearGradient>
     <radialGradient id="${k}iris" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#ffcf70"/><stop offset=".6" stop-color="#c87a1d"/><stop offset="1" stop-color="#7a4210"/></radialGradient>
     <linearGradient id="${k}gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6d77a"/><stop offset=".5" stop-color="#c9972b"/><stop offset="1" stop-color="#8a6417"/></linearGradient>
-    <linearGradient id="${k}body" x1="0" y1="0" x2="0" y2="1">${female?'<stop offset="0" stop-color="#d63d95"/><stop offset="1" stop-color="#9c2570"/>':'<stop offset="0" stop-color="#2b5a8c"/><stop offset="1" stop-color="#16365a"/>'}</linearGradient>
+    <linearGradient id="${k}body" x1="0" y1="0" x2="0" y2="1">${female?'<stop offset="0" stop-color="#d63d95"/><stop offset="1" stop-color="#9c2570"/>':'<stop offset="0" stop-color="#3a3a46"/><stop offset="1" stop-color="#15151c"/>'}</linearGradient>
     <linearGradient id="${k}bow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7ab8"/><stop offset="1" stop-color="#e03a8c"/></linearGradient>
     <clipPath id="${k}tc"><path d="M84 158 C106 164 122 146 118 120 C116 106 110 96 106 88 C106 100 102 112 96 122 C90 132 82 144 84 158 Z"/></clipPath>
     <clipPath id="${k}bc"><path d="M22 168 C22 134 38 116 60 114 C82 116 98 134 98 168 Z"/></clipPath>
@@ -64,6 +72,6 @@ function foxArt(female,mood="happy"){
   <path d="M55 82 C57 80 63 80 65 82" stroke="#fff" stroke-width="1.6" fill="none" opacity=".5" stroke-linecap="round"/><path d="M55.6 87.6 Q57.6 90 59.4 88.4 M64.4 87.6 Q62.4 90 60.6 88.4" stroke="#4a342a" stroke-width=".9" fill="none" stroke-linecap="round"/>
   <path d="M60 96.5 L60 105" stroke="${mouthCol}" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>
   <path d="${mouth}" fill="${mouthFill}" stroke="${mouthCol}" stroke-width="${female?2.6:2.6}" stroke-linecap="round" stroke-linejoin="round"/>
-  ${bow}
+  ${hoops}${cap}${bow}
   </svg>`;
 }
