@@ -128,7 +128,19 @@
     const scene=()=>D.scenes[idx];
     function atFn(sc){const ss=sentences(sc.text),tot=ss.join(" ").length;let cum=0;const starts=ss.map(s=>{const v=cum/tot;cum+=s.length+1;return v});return k=>Math.min(sc.dur*.92,Math.max(0,(starts[Math.min(k,starts.length-1)]||0)*sc.dur+.2))}
     function cur(){return fallback?(performance.now()-t0)/1000:audio.currentTime}
-    function draw(){const sc=scene();svg.innerHTML=(VIS[sc.id]?VIS[sc.id](atFn(sc),sc.dur):"")+"";sents=sentences(sc.text);lastCap=-1;$("vct").textContent="";
+    /* The picture is built from CSS animations. If the visitor's system has animations turned off (Windows "show animations" off,
+       or the reduced-motion setting), the global rule would freeze every piece at invisible. This is a video the visitor chose to play,
+       so put the animation back on the picture only, with inline !important so it beats the global rule. */
+    function keepMotion(){
+      if(!(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches))return;
+      const NM={vf:["vfade","0.7s","ease"],vp:["vpop","0.55s","cubic-bezier(.2,1.5,.4,1)"],vd:["vdraw","1.4s","ease"],vtmp:["vtempk","1s","linear"]};
+      svg.querySelectorAll(".vf,.vp,.vd,.vtmp").forEach(e=>{
+        const k=e.classList.contains("vf")?"vf":e.classList.contains("vp")?"vp":e.classList.contains("vd")?"vd":"vtmp";
+        const st=e.style,set=(n,v)=>st.setProperty(n,v,"important"),del=st.animationDelay||"0s",dur=st.animationDuration||NM[k][1];
+        set("animation-name",NM[k][0]);set("animation-delay",del);set("animation-duration",dur);set("animation-timing-function",NM[k][2]);set("animation-fill-mode","forwards");set("animation-iteration-count","1");
+      });
+    }
+    function draw(){const sc=scene();svg.innerHTML=(VIS[sc.id]?VIS[sc.id](atFn(sc),sc.dur):"")+"";keepMotion();sents=sentences(sc.text);lastCap=-1;$("vct").textContent="";
       document.querySelectorAll("#vchap .chip").forEach((b,i)=>b.classList.toggle("on",i===idx))}
     function tick(){
       const sc=scene(),t=Math.min(cur(),sc.dur);
