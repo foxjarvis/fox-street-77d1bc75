@@ -67,7 +67,7 @@ function home(){
     <div class="stamp">Street Edition</div>
     <div class="mascot">${fox("happy")}</div>
     <div class="icorow">💵 🧢 ⛓️ 🧟 📦</div>
-    <h1>Learn trading the way <em>you already think</em></h1>
+    <h1>Learn trading the way <em>you already know</em></h1>
     <p class="lead">You already know risk, weight, timing and who to trust. This school turns what you know into trading, in the words you actually use, then goes as deep as you want: the Nasdaq, candles, liquidity, risk, real strategies and the head game. Honest about what works and what does not.</p>
     <div><a class="btn" href="#/ch/${next.id}">${done?"Keep going":"Start lesson 1"}</a> <a class="btn alt" href="#/practice">Try the practice game</a></div>
     <div class="pillrow"><span class="pill">${CH.length} lessons</span><span class="pill">Real-chart practice</span><span class="pill">Interactive tools</span><span class="pill">Quizzes</span><span class="pill">Street talk translator</span><span class="pill">No signup</span></div>
@@ -89,6 +89,25 @@ function home(){
   scrollTo(0,0);
 }
 
+const SCENES={
+welcome:["🧢 🧟 💵","The dream gets sold on every block. Know the real odds before you put a dollar down."],
+markets:["🧟 🧟 🧟 ➡️ 🧍 📦","Zombies shuffle up when product is scarce and the price climbs. Nobody shuffling your way and the price drops."],
+nasdaq:["🏙️ 🏦 🧢","The Nasdaq is the biggest block downtown, where the big tech names post up."],
+futures:["⚖️ 📦 💵","A futures deal locks in the weight today for later. Know what every point pays before you touch it."],
+candles:["🕯️ 🧟 📋","A candle is a block report for one stretch of time: where it opened, how high, how low, where it closed."],
+charts:["🌙 🌆 ☀️","Different hours, different block. Overnight is quiet, the opening bell is when the zombies flood in."],
+structure:["🧱 🏚️ 🚧","Floors and ceilings are the spots that held before, like a corner that always has heat."],
+liquidity:["💧 🧟 🚓","Liquidity is the crowd. Big players need zombies on the other side to move weight without moving the price, and a sweep is a raid on everybody's stops."],
+orders:["🧾 📦 🤝","An order is the deal you set before you step out: the price, the size and when you walk."],
+indicators:["🧰 🔦 👀","Indicators are lookouts. They report what already happened. None of them can see around the corner."],
+risk:["🛡️ ⛓️ 🧢","Protect the bag first. One bad night should never end your run."],
+strategies:["♟️ 🗺️ 📖","Ten plays from the book, each with an honest evidence tag. No play wins every night."],
+mind:["🧠 😤 🧟","Tilt turns you into a zombie too: chasing, revenge trades, no plan. Stay awake."],
+testing:["🔬 📓 🧪","Run it small on paper before you front yourself real money, and write every move down."],
+business:["💼 🧾 🏦","A prop firm fronts you the account and you keep a split. Know the rules and the tax man's cut."],
+plan:["🗺️ 🧢 💵","No plan, no run. Write your rules down before the block opens."],
+playbook:["📒 🧢 🧟","Your plays, your levels, your checklist. Written by you, for you."]};
+function scene(id){const x=SCENES[id];return x?`<div class="scene"><div class="sico">${x[0]}</div><p><b>On the block:</b> ${x[1]}</p></div>`:""}
 function chapter(id){
   const i=CH.findIndex(c=>c.id===id);if(i<0)return home();
   const c=CH[i],prev=CH[i-1],next=CH[i+1];
@@ -96,6 +115,7 @@ function chapter(id){
   $("#app").innerHTML=`<div class="ch">
     <div class="crumbs"><a href="#/">All lessons</a><span>Lesson ${i+1} of ${CH.length} · about ${c.min} min</span></div>
     <div class="chhead"><div class="em">${c.em}</div><div><h1>${c.title}</h1><p>${c.tag}</p></div></div>
+    ${scene(c.id)}
     <div class="modes" role="group" aria-label="Detail level"><button data-m="easy" class="${S.mode==="easy"?"on":""}">Beginner</button><button data-m="deep" class="${S.mode==="deep"?"on":""}">Advanced</button></div>
     <div class="eli5"><div class="wk">${fox("happy")}</div><div><h3>The short version, street style</h3>${gl(c.eli5)}</div></div>
     ${secs}
