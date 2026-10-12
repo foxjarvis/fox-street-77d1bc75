@@ -68,7 +68,7 @@ function home(){
     <div class="mascot">${fox("happy")}</div>
     <div class="icorow">💵 🧢 ⛓️ 🧟 📦</div>
     <h1>Learn trading the way <em>you already know</em></h1>
-    <p class="lead">You already know risk, weight, timing and who to trust. This school turns what you know into trading, in the words you actually use, then goes as deep as you want: the Nasdaq, candles, liquidity, risk, real strategies and the head game. Honest about what works and what does not.</p>
+    <p class="lead">You already know risk, weight, timing and who to trust. This school turns what you know into trading, in the words you actually use, then goes as deep as you want (pause): the Nasdaq, candles, liquidity, risk, real strategies and the head game. Honest about what works and what does not.</p>
     <div><a class="btn" href="#/ch/${next.id}">${done?"Keep going":"Start lesson 1"}</a> <a class="btn alt" href="#/practice">Try the practice game</a></div>
     <div class="pillrow"><span class="pill">${CH.length} lessons</span><span class="pill">Real-chart practice</span><span class="pill">Interactive tools</span><span class="pill">Quizzes</span><span class="pill">Street talk translator</span><span class="pill">No signup</span></div>
     <div style="max-width:420px;margin:14px auto 0"><div class="bar"><i style="width:${pct}%"></i></div><div style="color:var(--mut);font-size:13px;margin-top:6px">${done} of ${CH.length} lessons finished</div></div>
