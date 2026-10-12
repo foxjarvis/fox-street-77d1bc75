@@ -1,7 +1,26 @@
 /* Interactive tools. All prices here are SIMULATED or made-up example numbers. */
 window.W=window.W||{};
 const $w=(s,r)=>r.querySelector(s);
-function box(el,title,html){el.innerHTML=`<div class="widget"><h4>${title}</h4>${html}</div>`;return el.firstChild}
+const STAG={
+"What is a point worth? P&L calculator":["⚖️","Like weighing it up before you move it: know exactly what every point is worth in your pocket."],
+"Build a candle":["🕯️","One candle is one block report. Slide it around and see who ran the corner that round."],
+"Same market, different zoom":["🔭","Same block, different distance. Up close it looks wild, from far away you see who really runs it."],
+"Spot the trend (5 rounds)":["🧟","Is the crowd of zombies growing or thinning out? Read the block before you step on it."],
+"Eat the order book":["📦","A thick block fills your whole order at one price. A thin block makes you pay more for every extra bag."],
+"Watch a liquidity sweep happen":["🚓","The raid: price pokes past the spot where everybody parked their stops, grabs them, then turns around."],
+"Spot the gap: three candles":["🕳️","A gap is a hole in the block where nobody traded. Price likes to come back and check it."],
+"Highs and lows tell the story":["🧱","Steps up means the zombies keep coming. Steps down means the block is drying up."],
+"Turn tools on and off":["🔦","Lookouts only report what already happened. Switch them on and see how much they actually tell you."],
+"The opening range":["🌅","The first stretch after the bell is when the zombies flood the block. Watch where it settles."],
+"The 24 hour trading day (New York time)":["🌙","Different hours, different block: dead overnight, packed at the open, quiet at lunch."],
+"Plan the trade: entry, stop, target":["🧾","Set the deal before you step out: where you get in, where you walk away, where you cash out."],
+"How many contracts? Position size calculator":["📦","Do not carry more weight than you can afford to lose. Size the pack to the account."],
+"Is your system a winner? Expectancy":["🧮","What does one run on this corner pay you on average? Zero or less means do not set up here."],
+"What does luck do? 20 parallel universes":["🎲","Twenty blocks, same rules, wildly different nights. Luck runs the short game, so do not brag early."],
+"The trailing drawdown trap":["🪤","The firm's floor follows you up. A great run can leave you closer to the edge than a flat one."],
+"Tilt check: am I fit to trade today?":["🧠","Be honest. Mad, tired or chasing a loss turns you into a zombie, so check before you play."],
+"Build your one-page trading plan":["🗺️","No plan, no run. Write your rules down before the block opens."]};
+function box(el,title,html){const t=STAG[title],tg=t?`<div class="stag"><span>${t[0]}</span> ${t[1]}</div>`:"";el.innerHTML=`<div class="widget"><h4>${title}</h4>${tg}${html}</div>`;return el.firstChild}
 const money=n=>(n<0?"-":"")+"$"+Math.abs(n).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
 const money0=n=>(n<0?"-":"")+"$"+Math.abs(Math.round(n)).toLocaleString();
 
