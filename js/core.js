@@ -92,7 +92,7 @@ function home(){
 const SCENES={
 welcome:["🧢 🧟 💵","The dream gets sold on every block. Know the real odds before you put a dollar down."],
 markets:["🧟 🧟 🧟 ➡️ 🧍 📦","Zombies shuffle up when product is scarce and the price climbs. Nobody shuffling your way and the price drops."],
-nasdaq:["🏙️ 🏦 🧢","The Nasdaq is the biggest block downtown, where the big tech names post up."],
+nasdaq:["🏦 📦 🔌","The Nasdaq is the new plug. The market has the product, sets the price and keeps its own hours, so you learn it before you deal with it."],
 futures:["⚖️ 📦 💵","A futures deal locks in the weight today for later. Know what every point pays before you touch it."],
 candles:["🕯️ 🧟 📋","A candle is a block report for one stretch of time: where it opened, how high, how low, where it closed."],
 charts:["🌙 🌆 ☀️","Different hours, different block. Overnight is quiet, the opening bell is when the zombies flood in."],
