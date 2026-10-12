@@ -7,14 +7,14 @@ const money0=n=>(n<0?"-":"")+"$"+Math.abs(Math.round(n)).toLocaleString();
 
 /* 1. supply and demand seesaw */
 W.seesaw=el=>{
-  const b=box(el,"The corner seesaw",`<div class="seesaw" id="ss"><div class="plank"></div><div class="tri"></div><div id="sl"></div><div id="sr"></div></div>
+  const b=box(el,"The corner seesaw: zombies vs. sellers",`<div class="seesaw" id="ss"><div class="plank"></div><div class="tri"></div><div id="sl"></div><div id="sr"></div></div>
   <div class="ctrl"><label>More sellers  ◀  slide  ▶  More buyers<input type="range" id="sv" min="0" max="100" value="50"></label></div><div class="out" id="so"></div>`);
   const draw=()=>{const v=+$w("#sv",b).value,buy=Math.round(v/10),sell=10-buy;
     $w(".plank",b).style.transform=`rotate(${(sell-buy)*2.2}deg)`;
-    $w("#sl",b).innerHTML=Array.from({length:buy},(_,i)=>`<span class="ppl" style="left:${12+i*5}%;top:${30+(i%3)*8-(buy-sell)*1.2}px">🙋</span>`).join("");
+    $w("#sl",b).innerHTML=Array.from({length:buy},(_,i)=>`<span class="ppl zom" style="left:${12+i*5}%;top:${30+(i%3)*8-(buy-sell)*1.2}px;animation-delay:${(i%4)*.15}s">🧟</span>`).join("");
     $w("#sr",b).innerHTML=Array.from({length:sell},(_,i)=>`<span class="ppl" style="right:${12+i*5}%;top:${30+(i%3)*8-(sell-buy)*1.2}px">🧍</span>`).join("");
-    const price=1+(buy-sell)*0.12;
-    $w("#so",b).innerHTML=`<b>${buy}</b> buyers pulled up wanting product, <b>${sell}</b> sellers want to move it. ${buy>sell?"Lots of buyers and few sellers, so sellers can ask for more, like a block where everybody wants what you got. The price <b class='up'>goes up</b>.":buy<sell?"Lots of sellers and few buyers, so sellers cut the price just to get it moving. The price <b class='dn'>goes down</b>.":"Same number on each side. The price <b>stays put</b>, a quiet block."} Price on the corner now: <b>$${price.toFixed(2)}</b> (made-up numbers).`};
+    const price=20+(buy-sell)*3;
+    $w("#so",b).innerHTML=`<b>${buy}</b> zombie buyers shuffled up with their hands out, <b>${sell}</b> sellers want to move product. ${buy>sell?"Lots of buyers and few sellers, so sellers can ask for more, like a block where everybody wants what you got. The price <b class='up'>goes up</b>.":buy<sell?"Lots of sellers and few buyers, so sellers cut the price just to get it moving. The price <b class='dn'>goes down</b>.":"Same number on each side. The price <b>stays put</b>, a quiet block."} A bag on the corner now: <b>$${price.toFixed(0)}</b> (made-up example). <i>The zombies are only a picture: a buyer who needs it bad pays almost anything, a buyer who does not need it walks.</i>`};
   $w("#sv",b).oninput=draw;draw();
 };
 

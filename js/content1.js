@@ -30,7 +30,7 @@ quiz:[
 
 CH.push({
 id:"markets",em:"🧱",title:"How prices work: the corner",tag:"Buyers, sellers and the one rule behind every price move.",min:12,
-eli5:`<p>You run a corner spot. If 50 people pull up and you only got 10 units, you can say "$5 a unit!" and still sell out. If nobody is buying and you got 100 units sitting there, you drop the price to $1 just to get it moving.</p><p><b>That is every market in the world.</b> Price goes up when more people want to buy than sell. Price goes down when more want to sell than buy.</p>`,
+eli5:`<p>You run a corner spot. Picture the buyers as zombies: they shuffle up with their hands out and one thing on their mind. If 50 zombies pull up and you only got 10 bags, you can say "$30 a bag!" and still sell out. If nobody is shuffling your way and you got 100 bags sitting there, you drop it to $10 a bag just to get it moving. (Made-up example prices. The zombies are only a picture so you can see it.)</p><p><b>That is every market in the world.</b> Price goes up when more people want to buy than sell. Price goes down when more want to sell than buy.</p>`,
 sections:[
 {h:"Buyers, sellers and the price in the middle",html:`<p>A {{market}} is a block where buyers and sellers meet. Every second, there are buyers saying "I will pay this much!" (the {{buyer|bid}}) and sellers saying "I will sell for this much!" (the {{ask}}). The bid is always a little lower than the ask. That little gap is the {{spread}}, the tax for moving.</p><p>When a buyer is in a hurry, they pay the seller's asking price and the deal happens. That deal price becomes the new "price" on your chart. If buyers keep being in a hurry, they keep eating through the sellers' offers, so the price steps up. If sellers are in a hurry and hit the bids, the price steps down.</p>`,
 widgets:["seesaw"]},
@@ -41,7 +41,7 @@ deep:`<p>Economists call this <b>price discovery</b>. In an efficient market, ne
 ],
 take:["Price goes up when more people want to buy than sell, and down when more want to sell than buy.","The bid is what buyers offer, the ask is what sellers want, and the spread is the gap between them.","Nobody knows the 'true' price. A price is just the latest agreement between a buyer and a seller.","You trade against institutions, market makers and algorithms, not just other beginners."],
 quiz:[
-{q:"If 50 buyers pull up and you only got 10 units, the price will probably...",o:["Go down","Go up","Stay exactly the same"],a:1,why:"More buyers than sellers pushes price up."},
+{q:"If 50 zombie buyers pull up and you only got 10 bags, the price will probably...",o:["Go down","Go up","Stay exactly the same"],a:1,why:"More buyers than sellers pushes price up."},
 {q:"What is the spread?",o:["The gap between the highest bid and the lowest ask","The total volume of a day","A type of candle"],a:0,why:"Spread = best ask minus best bid. It is a cost of trading."},
 {q:"Who are 'market makers'?",o:["People who draw charts","Firms that stand ready to both buy and sell, earning the spread","The government"],a:1,why:"They provide liquidity so you can trade whenever you want."},
 {q:"What mostly moves prices?",o:["Only company profits","Changing opinions of buyers and sellers, driven by news, feelings and big orders","The color of the chart"],a:1,why:"Prices reflect opinions about the future and who has to trade right now."}

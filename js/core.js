@@ -64,7 +64,9 @@ function home(){
   const next=CH.find(c=>S.done[c.id]==null)||CH[0];
   $("#app").innerHTML=`
   <section class="hero">
+    <div class="stamp">Street Edition</div>
     <div class="mascot">${fox("happy")}</div>
+    <div class="icorow">💵 🧢 ⛓️ 🧟 📦</div>
     <h1>Learn trading the way <em>you already think</em></h1>
     <p class="lead">You already know risk, weight, timing and who to trust. This school turns what you know into trading, in the words you actually use, then goes as deep as you want: the Nasdaq, candles, liquidity, risk, real strategies and the head game. Honest about what works and what does not.</p>
     <div><a class="btn" href="#/ch/${next.id}">${done?"Keep going":"Start lesson 1"}</a> <a class="btn alt" href="#/practice">Try the practice game</a></div>
