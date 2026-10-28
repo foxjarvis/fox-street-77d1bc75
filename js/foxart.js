@@ -58,6 +58,16 @@ function foxArt(female,mood="happy"){
   <path d="M28 48 C20 34 19 20 22 11 C32 17 42 26 50 36 Z" fill="${innerEar}"/>
   <path d="M92 48 C100 34 101 20 98 11 C88 17 78 26 70 36 Z" fill="${innerEar}"/>
   <path d="M30 44 C27 34 27 26 28 21 M90 44 C93 34 93 26 92 21" stroke="#fff" stroke-width="1.6" fill="none" opacity=".35" stroke-linecap="round"/>
+  ${female?"":`<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M27 35 C18 48 18 65 21 82 L19 104" stroke="#24140f" stroke-width="5.4"/>
+    <path d="M34 36 C26 52 28 70 30 86 L28 108" stroke="#3a2117" stroke-width="4.8"/>
+    <path d="M42 36 C35 52 36 68 39 82 L37 101" stroke="#24140f" stroke-width="4.5"/>
+    <path d="M93 35 C102 48 102 65 99 82 L101 104" stroke="#24140f" stroke-width="5.4"/>
+    <path d="M86 36 C94 52 92 70 90 86 L92 108" stroke="#3a2117" stroke-width="4.8"/>
+    <path d="M78 36 C85 52 84 68 81 82 L83 101" stroke="#24140f" stroke-width="4.5"/>
+    <path d="M28 45 C25 61 25 80 27 98" stroke="#b98243" stroke-width="1.6"/>
+    <path d="M91 47 C94 63 94 80 92 98" stroke="#d7b06a" stroke-width="1.6"/>
+  </g>`}
   <path d="M60 28 C86 28 104 44 104 66 C104 84 92 100 76 108 C70 111 64 112 60 112 C56 112 50 111 44 108 C28 100 16 84 16 66 C16 44 34 28 60 28 Z" fill="url(#${k}fur)" stroke="#b8500f" stroke-width="1.4"/>
   <path d="M17 72 C22 94 40 109 60 112 C80 109 98 94 103 72 C94 86 80 96 66 98 L60 100 L54 98 C40 96 26 86 17 72 Z" fill="#fffaf2" stroke="#e9d9c0" stroke-width="1"/>
   <path d="M17 72 L27 71 L22 79 Z M103 72 L93 71 L98 79 Z M22 82 L31 84 L25 90 Z M98 82 L89 84 L95 90 Z" fill="#fffaf2" stroke="#e9d9c0" stroke-width=".8" stroke-linejoin="round"/>
