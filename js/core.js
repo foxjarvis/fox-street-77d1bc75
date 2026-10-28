@@ -63,28 +63,34 @@ function home(){
   const done=CH.filter(c=>S.done[c.id]!=null).length,pct=Math.round(done/CH.length*100);
   const next=CH.find(c=>S.done[c.id]==null)||CH[0];
   $("#app").innerHTML=`
-  <section class="hero">
-    <div class="stamp">Street Edition</div>
-    <div class="mascot">${fox("happy")}</div>
-    <div class="icorow">💵 🧢 ⛓️ 🧟 📦</div>
-    <h1>The market is the new <em>plug</em></h1>
-    <p class="lead">You already know risk, weight, timing and who to trust. This school turns what you know into trading, in the words you actually use, then goes as deep as you want (pause): the Nasdaq, candles, liquidity, risk, real strategies and the head game. Honest about what works and what does not.</p>
-    <div><a class="btn" href="#/ch/${next.id}">${done?"Keep going":"Start lesson 1"}</a> <a class="btn alt" href="#/practice">Try the practice game</a></div>
-    <div class="pillrow"><span class="pill">${CH.length} lessons</span><span class="pill">Real-chart practice</span><span class="pill">Interactive tools</span><span class="pill">Quizzes</span><span class="pill">Street talk translator</span><span class="pill">No signup</span></div>
-    <div style="max-width:420px;margin:14px auto 0"><div class="bar"><i style="width:${pct}%"></i></div><div style="color:var(--mut);font-size:13px;margin-top:6px">${done} of ${CH.length} lessons finished</div></div>
+  <section class="hero street-hero">
+    <div class="street-kicker"><span>TRADER FOX</span><i></i><span>STREET EDITION</span></div>
+    <div class="hero-duo">
+      <div class="hero-character fox-main"><div class="mascot">${fox("happy")}</div><span class="character-tag">TRADER FOX <small>THE COACH</small></span></div>
+      <div class="hero-copy">
+        <p class="eyebrow">REAL SKILLS. REAL DISCIPLINE.</p>
+        <h1>The market is the new <em>plug</em></h1>
+        <p class="lead">Learn the game. Read the chart. Protect your money. Build your own process.</p>
+        <div class="hero-actions"><a class="btn" href="#/ch/${next.id}">${done?"Keep going":"Start lesson 1"} <span aria-hidden="true">→</span></a><a class="btn alt" href="#/practice">Step into the practice lab</a></div>
+        <div class="hero-proof"><span>${CH.length} lessons</span><span>Chart practice</span><span>Street-talk explanations</span><span>No signup</span></div>
+        <div class="hero-progress"><div class="bar"><i style="width:${pct}%"></i></div><div>${done} of ${CH.length} lessons finished</div></div>
+      </div>
+      <div class="hero-character frances-main"><div class="mascot">${foxF("happy")}</div><span class="character-tag">FRANCES <small>THE CO-HOST</small></span></div>
+    </div>
+    <div class="hero-signoff">Know the risk before you chase the reward.</div>
   </section>
   <div class="note"><b>Real talk first.</b> Research on day traders is rough. In one study of Brazilian futures traders who kept going for more than 300 days, 97% lost money. In a Taiwan study, fewer than 1% of day traders were predictably profitable after costs. This school will not promise you money, and anybody who does is running game on you. It will teach you the real game, how to protect yourself, and how to find out if you have an edge before you put real money down.</div>
   <div class="sechead"><h2>The lessons</h2><span>Go in order. Each one ends with a quiz.</span></div>
-  <div class="map">${CH.map((c,i)=>`<a class="cardlink" href="#/ch/${c.id}"><span class="n">${i+1}</span><div class="em">${c.em}</div><h3>${c.title}</h3><p>${c.tag}</p><div class="meta"><span>${c.min} min</span><span class="badge ${S.done[c.id]!=null?"done":"todo"}">${S.done[c.id]!=null?"Done "+S.done[c.id]+"%":"Not yet"}</span></div></a>`).join("")}</div>
+  <div class="map">${CH.map((c,i)=>`<a class="cardlink" href="#/ch/${c.id}"><span class="n">${String(i+1).padStart(2,"0")}</span><div class="em">${c.em}</div><h3>${c.title}</h3><p>${c.tag}</p><div class="meta"><span>${c.min} min</span><span class="badge ${S.done[c.id]!=null?"done":"todo"}">${S.done[c.id]!=null?"Done "+S.done[c.id]+"%":"Not yet"}</span></div></a>`).join("")}</div>
   <div class="sechead"><h2>Tools and extras</h2><span>Use these any time</span></div>
   <div class="map">
-    <a class="cardlink" href="#/intro"><div class="em">▶️</div><h3>Intro video (5 min)</h3><p>New to trading? Watch a short narrated introduction in street talk: what trading is, how to read a chart, risk, and where to start.</p></a>
-    <a class="cardlink" href="#/practice"><div class="em">🎮</div><h3>Practice game</h3><p>Trade real Nasdaq-100 futures history with a summary of what was going on. Score in R.</p></a>
-    <a class="cardlink" href="#/glossary"><div class="em">📖</div><h3>Glossary</h3><p>Every word with its street word, the street way to say it, then the trading talk.</p></a>
-    <a class="cardlink" href="#/translator"><div class="em">🗣️</div><h3>Street talk</h3><p>Type a word from the block, get the trading word. Or the other way around.</p></a>
-    <a class="cardlink" href="#/cheat"><div class="em">🧾</div><h3>Cheat sheet</h3><p>Tap any item and watch it explained with moving pictures, pointers and captions.</p></a>
-    <a class="cardlink" href="#/myths"><div class="em">🕵️</div><h3>Myths vs facts</h3><p>The things people believe about trading that are not true.</p></a>
-    <a class="cardlink" href="#/resources"><div class="em">📚</div><h3>Books and papers</h3><p>Where to go deeper, including the studies quoted here.</p></a>
+    <a class="cardlink" href="#/intro"><div class="em">▶</div><h3>Intro video (5 min)</h3><p>New to trading? Watch a short narrated introduction in street talk: what trading is, how to read a chart, risk, and where to start.</p></a>
+    <a class="cardlink" href="#/practice"><div class="em">▥</div><h3>Practice game</h3><p>Trade real Nasdaq-100 futures history with a summary of what was going on. Score in R.</p></a>
+    <a class="cardlink" href="#/glossary"><div class="em">Aa</div><h3>Glossary</h3><p>Every word with its street word, the street way to say it, then the trading talk.</p></a>
+    <a class="cardlink" href="#/translator"><div class="em">↔</div><h3>Street talk</h3><p>Type a word from the block, get the trading word. Or the other way around.</p></a>
+    <a class="cardlink" href="#/cheat"><div class="em">▤</div><h3>Cheat sheet</h3><p>Tap any item and watch it explained with moving pictures, pointers and captions.</p></a>
+    <a class="cardlink" href="#/myths"><div class="em">!</div><h3>Myths vs facts</h3><p>The things people believe about trading that are not true.</p></a>
+    <a class="cardlink" href="#/resources"><div class="em">↗</div><h3>Books and papers</h3><p>Where to go deeper, including the studies quoted here.</p></a>
   </div>`;
   scrollTo(0,0);
 }
